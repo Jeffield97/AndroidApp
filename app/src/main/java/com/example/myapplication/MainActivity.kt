@@ -6,8 +6,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -31,24 +33,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.navigation.AppNavigation
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.example.myapplication.view.UserListScreen
 import com.example.myapplication.viewModel.UserViewModel
 
 class MainActivity : ComponentActivity() {
-    private val userViewModel: UserViewModel by viewModels()
+//    private val userViewModel: UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             val usuarios = List(250) { "User $it" }
             // Eliminamos el contentPadding si no lo necesitamos
-            Scaffold(modifier = Modifier.padding(10.dp)) { innerPadding ->
+            Scaffold(modifier = Modifier.padding(0.dp)) { innerPadding ->
 //                UserListScreen(viewModel = userViewModel)
-                    ListUsers(
-                        innerPadding,
-                        usuarios = usuarios
-                    );
+//                    ListUsers(
+//                        innerPadding,
+//                        usuarios = usuarios
+//                    );
+                AppNavigation()
+
             }
         }
     }
@@ -67,18 +72,20 @@ fun ListUsers(innerPadding:PaddingValues,usuarios:List<String>) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
+
     MyApplicationTheme {
         // Lista de usuarios como List<String>
-        val usuarios = List(250) { "Usuario $it" }
-
-        // Scaffold con padding
-        Scaffold(modifier = Modifier.padding(10.dp)) { innerPadding ->
-            // LazyColumn para mostrar la lista
-            ListUsers(
-                innerPadding,
-                usuarios = usuarios
-            );
-        }
+//        val usuarios = List(250) { "Usuario $it" }
+//
+//        // Scaffold con padding
+//        Scaffold(modifier = Modifier.padding(10.dp)) { innerPadding ->
+//            // LazyColumn para mostrar la lista
+//            ListUsers(
+//                innerPadding,
+//                usuarios = usuarios
+//            );
+//        }
+        AppNavigation()
     }
 }
 
@@ -86,7 +93,7 @@ fun GreetingPreview() {
 @Composable
 fun ListItem(usuario: String) {
 
-    Row (modifier = Modifier.padding(1.dp).background(color = Color.DarkGray).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically){
+    Row (modifier = Modifier.padding(5.dp,10.dp).border(BorderStroke(1.dp, Color.Black)).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically){
         Image(
             painter = painterResource(id = R.mipmap.among_foreground),
             contentDescription = stringResource(id = R.string.app_name),
@@ -95,7 +102,7 @@ fun ListItem(usuario: String) {
         Text(
             text = usuario,
             modifier = Modifier.padding(8.dp),
-            color = Color.White
+            color = Color.Black
         )
     }
 }
